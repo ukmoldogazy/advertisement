@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:advertisement/constants/sized_box.dart';
 import 'package:advertisement/service/date_time.dart';
 import 'package:advertisement/service/image_upload.dart';
@@ -22,7 +20,7 @@ class _AddProductState extends State<AddProduct> {
   final _dateTime = TextEditingController();
   final _phoneNumber = TextEditingController();
   final _address = TextEditingController();
-  late File imageFile;
+  // late File imageFile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
