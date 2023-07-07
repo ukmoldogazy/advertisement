@@ -1,5 +1,8 @@
 import 'package:advertisement/constants/sized_box.dart';
+import 'package:advertisement/service/date_time.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_text_field.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -37,52 +40,34 @@ class _AddProductState extends State<AddProduct> {
             ),
             AppSizes.height10,
             CustomTextField(
-              hinText: 'name',
+              hinText: 'Your name',
               controller: _name,
             ),
             AppSizes.height10,
             CustomTextField(
-              hinText: 'dateTime',
+              hinText: 'Choose date',
               controller: _dateTime,
+              onTap: () async {
+                await DateTimeService.showDateTimePicker(
+                  context,
+                  (value) {
+                    _dateTime.text = value.toString();
+                  },
+                );
+              },
             ),
             AppSizes.height10,
             CustomTextField(
-              hinText: 'phoneNumber',
+              hinText: 'Enter your phone number',
               controller: _phoneNumber,
             ),
             AppSizes.height10,
             CustomTextField(
-              hinText: 'address',
+              hinText: 'Enter your address',
               controller: _address,
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.hinText,
-    this.controller,
-    this.maxLines,
-  });
-  final String hinText;
-  final TextEditingController? controller;
-  final int? maxLines;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      maxLines: maxLines,
-      controller: controller,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        filled: true,
-        hintText: hinText,
-        labelText: 'Your name',
       ),
     );
   }

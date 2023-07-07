@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class Info {
   Info({
-    required this.image,
+    this.image,
     required this.title,
     required this.description,
     required this.name,
