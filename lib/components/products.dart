@@ -2,6 +2,7 @@ import 'package:advertisement/constants/sized_box.dart';
 import 'package:advertisement/service/date_time.dart';
 import 'package:advertisement/service/image_upload.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import 'custom_text_field.dart';
@@ -58,7 +59,9 @@ class _AddProductState extends State<AddProduct> {
             //   maxLines: 5,
             // ),
 
-            ImageContainer(),
+            ImageContainer(
+              images: const <XFile>[],
+            ),
 
             AppSizes.height10,
             CustomTextField(
@@ -97,16 +100,18 @@ class _AddProductState extends State<AddProduct> {
   }
 }
 
+// ignore: must_be_immutable
 class ImageContainer extends StatefulWidget {
-  ImageContainer({super.key});
-  final List<dynamic> images = [];
+  ImageContainer({super.key, required this.images});
+  List<XFile> images = [];
 
   @override
   State<ImageContainer> createState() => _ImageContainerState();
 }
 
 class _ImageContainerState extends State<ImageContainer> {
-  late ImagePickerService service;
+  final service = ImagePickerService();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -120,7 +125,11 @@ class _ImageContainerState extends State<ImageContainer> {
           ? ListView()
           : IconButton(
               onPressed: () async {
-                service.pickImages();
+                final value = await service.pickImages();
+                if (value != null) {
+                  widget.images = value;
+                  setState(() {});
+                }
               },
               icon: const Icon(
                 Icons.camera_alt,
