@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DateTimeService {
-  static Future<void> showDateTimePicker(
+class DateTimeSrevice {
+  Future<void> showDateTimePicker(
       BuildContext context, void Function(DateTime) onDateTimeChanged) {
     return showCupertinoModalPopup(
         context: context,
@@ -10,7 +10,7 @@ class DateTimeService {
           return Container(
             height: MediaQuery.of(context).copyWith().size.height * 0.25,
             decoration: const BoxDecoration(
-              color: Colors.black,
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
@@ -20,7 +20,7 @@ class DateTimeService {
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: onDateTimeChanged,
               initialDateTime: DateTime.now(),
-              minimumYear: 2020,
+              minimumYear: 2000,
               maximumYear: 2025,
             ),
           );

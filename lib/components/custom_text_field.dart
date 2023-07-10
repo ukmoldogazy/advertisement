@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    super.key,
-    this.hinText,
+    Key? key,
+    this.hintText,
     this.controller,
     this.maxLines,
     this.onTap,
     this.prefixIcon,
     this.focusNode,
-  });
-  final String? hinText;
+  }) : super(key: key);
+  final String? hintText;
   final TextEditingController? controller;
   final int? maxLines;
   final void Function()? onTap;
@@ -20,14 +20,15 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: maxLines,
       controller: controller,
+      maxLines: maxLines,
       onTap: onTap,
+      focusNode: focusNode,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         border: const OutlineInputBorder(),
         filled: true,
-        hintText: hinText,
+        hintText: hintText,
       ),
     );
   }
