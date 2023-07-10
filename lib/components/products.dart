@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:advertisement/constants/sized_box.dart';
 import 'package:advertisement/service/date_time.dart';
 import 'package:advertisement/service/image_upload.dart';
@@ -59,9 +61,9 @@ class _AddProductState extends State<AddProduct> {
             //   maxLines: 5,
             // ),
 
-            ImageContainer(
-              images: const <XFile>[],
-            ),
+            const ImageContainer(
+                // images: const <XFile>[],
+                ),
 
             AppSizes.height10,
             CustomTextField(
@@ -102,32 +104,45 @@ class _AddProductState extends State<AddProduct> {
 
 // ignore: must_be_immutable
 class ImageContainer extends StatefulWidget {
-  ImageContainer({super.key, required this.images});
-  List<XFile> images = [];
+  const ImageContainer({super.key});
 
   @override
   State<ImageContainer> createState() => _ImageContainerState();
 }
 
 class _ImageContainerState extends State<ImageContainer> {
+  List<XFile> images = [];
   final service = ImagePickerService();
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(30),
       height: 300,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey[500],
         border: Border.all(),
       ),
-      child: widget.images.isNotEmpty
-          ? ListView()
+      child: images.isNotEmpty
+          ? GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+              ),
+              children: images
+                  .map(
+                    (e) => ItemCard(
+                      file: File(e.path),
+                    ),
+                  )
+                  .toList(),
+            )
           : IconButton(
               onPressed: () async {
                 final value = await service.pickImages();
                 if (value != null) {
-                  widget.images = value;
+                  images = value;
                   setState(() {});
                 }
               },
@@ -136,6 +151,26 @@ class _ImageContainerState extends State<ImageContainer> {
                 color: Colors.black,
                 size: 100,
               )),
+    );
+  }
+}
+
+class ItemCard extends StatelessWidget {
+  const ItemCard({
+    super.key,
+    required this.file,
+  });
+
+  final File file;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: 50,
+      child: Image.file(
+        file,
+      ),
     );
   }
 }
