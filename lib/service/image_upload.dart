@@ -1,15 +1,3 @@
-// import 'package:image_picker/image_picker.dart';
-
-// class ImagePicker {
-//   static Future<List<XFile>> pickedImage() async {
-//     final ImagePicker picker = ImagePicker();
-//     final images = await picker.pickMultipleMedia();
-//     return images;
-//   }
-
-//   pickMultipleMedia() {}
-// }
-
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerService {
